@@ -1,0 +1,193 @@
+---
+title: "Task1"
+author: "Artem Slupskyi"
+date: "27/10/2025"
+format:
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Question 1 Atomic Types
+
+Create the following variables related to your chosen object:
+
+- **4 numeric** values (e.g., population, temperature, size, rating)  
+- **3 integer** values (e.g., number of moons, buildings, inhabitants)  
+- **2 logical** values (e.g., `has_water`, `is_inhabited`)  
+- **3 character** values (e.g., `name`, `region`, `category`)
+
+**Tip:** Think of these variables as *attributes* of your object.  
+Use `print()` or `cat()` to describe them in one sentence.
+
+```{r}
+# code for solving task
+population_density <- 6544.5 # people/sq. km
+
+average_temperature <- 8.5       
+area_km2 <- 182.0                
+elevation_m <- 296.0             
+tourism_rating <- 9.2            
+
+# 3 integer values
+population <- 720000            
+districts <- 6                  
+universities <- 12              
+
+# 2 logical values
+has_airport <- TRUE              
+is_capital <- FALSE             
+
+# 3 character values
+city_name <- "Lviv"
+region <- "Lviv Oblast"
+category <- "Regional City"
+
+
+```
+
+
+## Question 2 Vectors
+
+Create three different vectors:
+
+1. **Numeric vector** combining all your numeric and integer variables.  
+   *(Use `c()`.)*
+
+2. **Sequence vector** from any number between 10–50 to 100, Choose step between 2 and 10.  
+   *(Use `seq()` or `:`.)*
+
+3. **Logical vector** of length 10 with random `TRUE`/`FALSE` values using `sample()`.
+
+
+```{r}
+# code for solving task
+# 1. Numeric vector (combining numeric and integer variables)
+numeric_vector <- c(8.5, 182.0, 296.0, 9.2, 720000, 6, 12)
+print(numeric_vector)
+
+# 2. Sequence vector (from 20 to 100, step = 5)
+sequence_vector <- seq(from = 20, to = 100, by = 5)
+print(sequence_vector)
+
+# 3. Logical vector (length 10, random TRUE/FALSE values)
+set.seed(123)  # for reproducibility
+logical_vector <- sample(c(TRUE, FALSE), size = 10, replace = TRUE)
+print(logical_vector)
+
+```
+## Question 3 Matrix
+
+Create a **3×3 matrix** with random numbers between **-50 and 50**  
+(using `sample()` or `runif()`), and name its **rows and columns** according to your theme.
+
+Then calculate row and column averages using `rowMeans()` and `colMeans()`.
+
+```{r}
+# code for solving task
+set.seed(42)
+lviv_matrix <- matrix(sample(-50:50, 9, replace = TRUE), nrow = 3, ncol = 3)
+
+rownames(lviv_matrix) <- c("Economy", "Culture", "Infrastructure")
+colnames(lviv_matrix) <- c("2023", "2024", "2025")
+
+row_avg <- rowMeans(lviv_matrix)
+col_avg <- colMeans(lviv_matrix)
+
+```
+
+## Question 4 List  
+
+Create a **list** that combines all your previous objects:  
+atomic variables, vectors, and matrix.
+Add one extra element — a short **description** of your universe as a string.
+
+```{r}
+# code for solving task
+lviv_list <- list(
+  # Atomic variables
+  average_temperature = 8.5,
+  area_km2 = 182.0,
+  elevation_m = 296.0,
+  tourism_rating = 9.2,
+  population = 720000L,
+  districts = 6,
+  universities = 12,
+  has_airport = TRUE,
+  is_capital = FALSE,
+  city_name = "Lviv",
+  region = "Lviv Oblast",
+  category = "Regional City",
+  
+  # Vectors
+  numeric_vector = numeric_vector,
+  sequence_vector = sequence_vector,
+  logical_vector = logical_vector,
+  
+  # Matrix
+  matrix = lviv_matrix,
+  
+  # Description
+  description = "Lviv is a cultural and historical city in western Ukraine, known for its architecture and rich heritage."
+)
+```
+
+## Question 5 Factor
+
+Create a **factor variable** representing categories within your universe, e.g.:
+
+- `"low"`, `"medium"`, `"high"`  
+- `"infant"`, `"child"`, `"adult"`  
+- `"poor"`, `"average"`, `"rich"`
+
+Make sure you have **at least 5 observations** total.  
+Then use `table()` to show how many objects fall into each category.
+
+```{r}
+# code for solving task
+# Create a factor variable representing tourism levels in different districts of Lviv
+tourism_level <- factor(
+  c("high", "medium", "high", "low", "medium", "high"),
+  levels = c("low", "medium", "high")
+)
+
+# Display frequency table
+table(tourism_level)
+
+```
+## Question 6 Data Frame
+
+Create a **data frame** related to your object that includes:
+
+1. **5–8 observations** (rows)  
+2. **At least 3 columns** of different data types  
+   (e.g., name, numeric value, logical flag, category)
+
+Then:
+
+- Rename the columns using `names()` or `colnames()`.  
+- Display its structure with `str()` and its summary with `summary()`.  
+- Add a new column derived from the others (for example, a ratio or condition).
+
+```{r}
+# code for solving task
+# Create a data frame related to the city of Lviv
+lviv_data <- data.frame(
+  district = c("Halytskyi", "Shevchenkivskyi", "Sykhivskyi", "Frankivskyi", "Lychakivskyi", "Zaliznychnyi"),
+  population_thousands = c(150, 200, 180, 160, 120, 110),
+  area_km2 = c(20.5, 25.3, 27.8, 22.4, 18.6, 16.7),
+  has_university = c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE),
+  tourism_level = factor(c("high", "medium", "medium", "high", "low", "low"),
+                         levels = c("low", "medium", "high"))
+)
+
+# Rename columns
+colnames(lviv_data) <- c("District", "Population_thousands", "Area_km2", "Has_university", "Tourism_level")
+
+# Display structure and summary
+str(lviv_data)
+summary(lviv_data)
+
+# Add a new column: population density (thousands per km²)
+lviv_data$Density <- lviv_data$Population_thousands / lviv_data$Area_km2
+```
